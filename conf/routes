@@ -1,0 +1,69 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# https://www.playframework.com/documentation/latest/ScalaRouting
+# ~~~~
+
+# An example controller showing a sample home page
+GET     /                           controllers.HomeController.index
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+
+
+GET /time  controllers.TimerController.time
+
+GET  /time/zones controllers.TimerController.zones
+GET /time/*zone controllers.TimerController.timeForZone(zone)
+
+
+
+
+
+# query param example
+GET /test/queryParam controllers.QueryController.queryParamExample(name:Option[String],age:Option[Double])
+
+
+
+GET /add/:n1/to/:n2 controllers.CalcController.add(n1:Double,n2:Double)
+
+GET /and/:b1/with/:b2  controllers.CalcController.combine(b1:Boolean,b2:Boolean)
+
+# take multiple query params
+GET /concat/:s1/:s2/:s3 controllers.CalcController.concat(s1:String,s2:String,s3:String)
+
+#  Accept list as a parameter with repeated queryParam num
+GET /sort controllers.CalcController.sort(num:List[Int])
+
+#path param could contains forward slash *
+GET /test/*a/test/*b controllers.QueryController.test(a,b)
+
+
+#get components of the request
+GET /parseRequest controllers.QueryController.parseRequest
+
+GET /withHeaders controllers.QueryController.withHeaders
+
+GET /withCookies controllers.QueryController.withCookies
+
+POST /parseCVSAsApplicationFormUrlEncoded controllers.CVSParserController.parseCVSAsApplicationFormUrlEncoded
+
+
+# login should not be GET . but just for test
+GET /login  controllers.AuthenticationController.login(userName:String,password:String)
+
+GET /whoAmI controllers.AuthenticationController.whoAmI
+
+GET /index controllers.AuthenticationController.index
+
+# just echo back the content of passed json
++nocsrf
+POST /testJsonBodyRequest controllers.JSONController.testJsonRequest
+
++nocsrf
+POST /testForcedJson   controllers.JSONController.testForcedJson
+
+
+GET /testWithJsonResponse controllers.JSONController.testWithJsonResponse
+
++nocsrf
+POST /readJson controllers.JSONController.readJson
